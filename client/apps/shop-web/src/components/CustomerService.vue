@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { nextTick, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 type ChatMessage = { role: 'user' | 'assistant'; content: string; error?: boolean }
+const CHAT_TIMEOUT_MS = 60_000
 const open = ref(false)
+const router = useRouter()
 const input = ref('')
 const sending = ref(false)
 const messages = ref<ChatMessage[]>([
@@ -11,6 +14,14 @@ const messages = ref<ChatMessage[]>([
 const messageList = ref<HTMLElement>()
 const suggestions = ['我的订单到哪了？', '怎么确认收货？', '退换货规则是什么？']
 const conversationId = getConversationId()
+
+function toggle() {
+  if (!localStorage.getItem('token')) {
+    router.push('/login')
+    return
+  }
+  open.value = !open.value
+}
 
 function getConversationId() {
   const key = 'customer-service-conversation-id'
@@ -36,13 +47,16 @@ async function send(text = input.value) {
   messages.value.push(answer)
   sending.value = true
   await scrollToBottom()
+  const controller = new AbortController()
+  const timeoutId = window.setTimeout(() => controller.abort(), CHAT_TIMEOUT_MS)
   try {
     const baseUrl = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080/api/v1'
     const token = localStorage.getItem('token')
     const response = await fetch(`${baseUrl}/customer-service/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
-      body: JSON.stringify({ message: question, conversationId })
+      body: JSON.stringify({ message: question, conversationId }),
+      signal: controller.signal
     })
     if (!response.ok) throw new Error(`客服暂时不可用（${response.status}）`)
     if (!response.body) throw new Error('浏览器不支持流式回复')
@@ -63,9 +77,12 @@ async function send(text = input.value) {
     }
     if (buffer.startsWith('data:')) answer.content += buffer.slice(5).trimStart()
   } catch (error) {
-    answer.content = error instanceof Error ? error.message : '客服暂时不可用，请稍后再试。'
+    answer.content = error instanceof DOMException && error.name === 'AbortError'
+      ? '本次回复超过 1 分钟，请稍后重试。'
+      : error instanceof Error ? error.message : '客服暂时不可用，请稍后再试。'
     answer.error = true
   } finally {
+    window.clearTimeout(timeoutId)
     sending.value = false
     await scrollToBottom()
   }
@@ -97,7 +114,7 @@ async function send(text = input.value) {
         <div class="chat-tip">智能回复仅供参考，订单信息以“我的订单”为准</div>
       </section>
     </transition>
-    <button class="service-fab" :class="{active:open}" :aria-expanded="open" :aria-label="open?'关闭智能客服':'打开智能客服'" @click="open=!open">
+    <button class="service-fab" :class="{active:open}" :aria-expanded="open" :aria-label="open?'关闭智能客服':'打开智能客服'" @click="toggle">
       <span v-if="open" class="fab-close">×</span>
       <span v-else class="robot-icon" aria-hidden="true">
         <i class="robot-antenna"></i>
