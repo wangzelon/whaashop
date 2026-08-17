@@ -1,6 +1,7 @@
 package com.whaa.shop.common.config;
 
 import com.whaa.shop.auth.infrastructure.JwtAuthenticationFilter;
+import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
@@ -44,6 +45,6 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain security(HttpSecurity http, JwtAuthenticationFilter jwt,
                                  @Qualifier("corsConfigurationSource") CorsConfigurationSource cors) throws Exception {
-        return http.csrf(c -> c.disable()).cors(c -> c.configurationSource(cors)).sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeHttpRequests(a -> a.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll().requestMatchers("/api/v1/auth/**", "/api/v1/files/**", "/api/v1/shop/products/**", "/api/v1/shop/categories/**", "/api/v1/shop/home-banners", "/api/v1/shop/promotions/**", "/api/v1/customer-service/chat", "/api/v1/payment/alipay/notify", "/v3/api-docs", "/v3/api-docs/**", "/doc.html", "/webjars/**", "/img/**", "/swagger-ui.html", "/swagger-ui/**").permitAll().requestMatchers("/api/v1/admin/**").hasRole("ADMIN").anyRequest().authenticated()).addFilterBefore(jwt, UsernamePasswordAuthenticationFilter.class).build();
+        return http.csrf(c -> c.disable()).cors(c -> c.configurationSource(cors)).sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeHttpRequests(a -> a.dispatcherTypeMatchers(DispatcherType.ASYNC, DispatcherType.ERROR).permitAll().requestMatchers(HttpMethod.OPTIONS, "/**").permitAll().requestMatchers("/api/v1/auth/**", "/api/v1/files/**", "/api/v1/shop/products/**", "/api/v1/shop/categories/**", "/api/v1/shop/home-banners", "/api/v1/shop/promotions/**", "/api/v1/payment/alipay/notify", "/v3/api-docs", "/v3/api-docs/**", "/doc.html", "/webjars/**", "/img/**", "/swagger-ui.html", "/swagger-ui/**").permitAll().requestMatchers("/api/v1/admin/**").hasRole("ADMIN").anyRequest().authenticated()).addFilterBefore(jwt, UsernamePasswordAuthenticationFilter.class).build();
     }
 }

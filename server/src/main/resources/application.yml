@@ -6,6 +6,9 @@ logging:
 spring:
   application:
     name: whaashop-server
+  mvc:
+    async:
+      request-timeout: 60s
   datasource:
     url: ${DB_URL:jdbc:mysql://localhost:3306/whaashop?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
     username: ${DB_USERNAME:root}
