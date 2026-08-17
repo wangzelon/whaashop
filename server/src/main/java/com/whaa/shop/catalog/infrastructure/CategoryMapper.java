@@ -1,0 +1,1 @@
+package com.whaa.shop.catalog.infrastructure;import com.baomidou.mybatisplus.core.mapper.BaseMapper;import com.whaa.shop.catalog.domain.Category;public interface CategoryMapper extends BaseMapper<Category>{}

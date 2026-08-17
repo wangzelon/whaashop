@@ -1,0 +1,2 @@
+package com.whaa.shop.review.infrastructure; import com.baomidou.mybatisplus.core.mapper.BaseMapper; import com.whaa.shop.review.domain.ProductReview; import org.apache.ibatis.annotations.*;
+public interface ReviewMapper extends BaseMapper<ProductReview>{@Update("update product_review set append_count=append_count+1 where id=#{id} and user_id=#{userId} and append_count<3 and hidden=0")int reserveAppend(@Param("id")Long id,@Param("userId")Long userId);}

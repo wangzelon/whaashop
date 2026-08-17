@@ -1,0 +1,1 @@
+{"name":"whaashop-client","private":true,"packageManager":"pnpm@11.19.0","scripts":{"dev:admin":"pnpm --filter @whaashop/admin-web dev","dev:shop":"pnpm --filter @whaashop/shop-web dev","build":"pnpm -r build","typecheck":"pnpm -r typecheck"},"devDependencies":{"typescript":"^5.9.3","vue-tsc":"^3.1.8"}}

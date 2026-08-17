@@ -1,0 +1,1 @@
+package com.whaa.shop.product.infrastructure; import com.baomidou.mybatisplus.core.mapper.BaseMapper; import com.whaa.shop.product.domain.Product; public interface ProductMapper extends BaseMapper<Product>{}

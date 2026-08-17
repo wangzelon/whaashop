@@ -1,0 +1,4 @@
+package com.whaa.shop.review.domain; import com.baomidou.mybatisplus.annotation.*; import java.time.LocalDateTime;
+@TableName("review_append") public class ReviewAppend {@TableId(type=IdType.AUTO)private Long id;private Long reviewId;private Integer sequenceNo;private String content;private String imagesJson;private LocalDateTime createdAt;
+ public Long getId(){return id;}public void setId(Long v){id=v;}public Long getReviewId(){return reviewId;}public void setReviewId(Long v){reviewId=v;}public Integer getSequenceNo(){return sequenceNo;}public void setSequenceNo(Integer v){sequenceNo=v;}public String getContent(){return content;}public void setContent(String v){content=v;}public String getImagesJson(){return imagesJson;}public void setImagesJson(String v){imagesJson=v;}public LocalDateTime getCreatedAt(){return createdAt;}public void setCreatedAt(LocalDateTime v){createdAt=v;}}
+

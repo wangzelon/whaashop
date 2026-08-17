@@ -1,0 +1,1 @@
+package com.whaa.shop.file.application; import org.springframework.web.multipart.MultipartFile;import java.io.InputStream; public interface ObjectStorageService {StoredObject upload(String prefix,MultipartFile file);InputStream read(String objectKey);void delete(String objectKey);record StoredObject(String objectKey,String url,String contentType,long size){}}

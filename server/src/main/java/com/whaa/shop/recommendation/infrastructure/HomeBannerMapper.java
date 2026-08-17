@@ -1,0 +1,1 @@
+package com.whaa.shop.recommendation.infrastructure;import com.baomidou.mybatisplus.core.mapper.BaseMapper;import com.whaa.shop.recommendation.domain.HomeBanner;public interface HomeBannerMapper extends BaseMapper<HomeBanner>{}

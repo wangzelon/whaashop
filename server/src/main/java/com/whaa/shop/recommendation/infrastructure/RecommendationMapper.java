@@ -1,0 +1,1 @@
+package com.whaa.shop.recommendation.infrastructure;import com.baomidou.mybatisplus.core.mapper.BaseMapper;import com.whaa.shop.recommendation.domain.Recommendation;public interface RecommendationMapper extends BaseMapper<Recommendation>{}

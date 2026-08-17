@@ -1,0 +1,3 @@
+package com.whaa.shop.cart.domain;import com.baomidou.mybatisplus.annotation.*;
+@TableName("cart_item") public class CartItem {@TableId(type=IdType.AUTO)private Long id;private Long userId;private Long skuId;private Integer quantity;private Boolean checked;
+ public Long getId(){return id;}public void setId(Long v){id=v;}public Long getUserId(){return userId;}public void setUserId(Long v){userId=v;}public Long getSkuId(){return skuId;}public void setSkuId(Long v){skuId=v;}public Integer getQuantity(){return quantity;}public void setQuantity(Integer v){quantity=v;}public Boolean getChecked(){return checked;}public void setChecked(Boolean v){checked=v;}}

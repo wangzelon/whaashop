@@ -1,0 +1,3 @@
+package com.whaa.shop.payment.controller;import com.whaa.shop.common.api.*;import com.whaa.shop.payment.application.PaymentRecordService;import com.whaa.shop.payment.domain.PaymentRecord;import org.springframework.web.bind.annotation.*;
+@RestController @RequestMapping("/api/v1/admin/payments") public class PaymentAdminController {private final PaymentRecordService service;public PaymentAdminController(PaymentRecordService s){service=s;}@GetMapping ApiResponse<PageResponse<PaymentRecord>> page(@RequestParam(defaultValue="1")long page,@RequestParam(defaultValue="20")long size,@RequestParam(required=false)String status){return ApiResponse.ok(service.page(page,size,status));}}
+

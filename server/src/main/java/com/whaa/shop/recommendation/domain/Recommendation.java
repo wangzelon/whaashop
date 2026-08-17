@@ -1,0 +1,3 @@
+package com.whaa.shop.recommendation.domain;import com.baomidou.mybatisplus.annotation.*;
+@TableName("recommendation") public class Recommendation {@TableId(type=IdType.AUTO)private Long id;private Long productId;private String positionCode;private Integer sortOrder;private Boolean enabled;
+ public Long getId(){return id;}public void setId(Long v){id=v;}public Long getProductId(){return productId;}public void setProductId(Long v){productId=v;}public String getPositionCode(){return positionCode;}public void setPositionCode(String v){positionCode=v;}public Integer getSortOrder(){return sortOrder;}public void setSortOrder(Integer v){sortOrder=v;}public Boolean getEnabled(){return enabled;}public void setEnabled(Boolean v){enabled=v;}}

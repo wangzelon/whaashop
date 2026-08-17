@@ -1,0 +1,1 @@
+package com.whaa.shop.payment.infrastructure;import com.baomidou.mybatisplus.core.mapper.BaseMapper;import com.whaa.shop.payment.domain.PaymentRecord;public interface PaymentRecordMapper extends BaseMapper<PaymentRecord>{}

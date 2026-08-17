@@ -1,0 +1,1 @@
+.dashboard-main-grid>.chart-panel:last-child{grid-column:1/-1}.dashboard-main-grid>.chart-panel:last-child .dashboard-chart{height:280px}@media(max-width:850px){.dashboard-main-grid>.chart-panel:last-child{grid-column:auto}.dashboard-main-grid>.chart-panel:last-child .dashboard-chart{height:320px}}

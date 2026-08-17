@@ -1,0 +1,1 @@
+package com.whaa.shop.customerService.infrastructure;import com.baomidou.mybatisplus.core.mapper.BaseMapper;import com.whaa.shop.customerService.domain.KnowledgeFile;public interface KnowledgeFileMapper extends BaseMapper<KnowledgeFile>{}

@@ -1,0 +1,2 @@
+package com.whaa.shop.product.infrastructure; import com.baomidou.mybatisplus.core.mapper.BaseMapper; import com.whaa.shop.product.domain.Sku; import org.apache.ibatis.annotations.*; public interface SkuMapper extends BaseMapper<Sku>{@Update("update product_sku set stock=stock-#{quantity} where id=#{id} and enabled=1 and stock>=#{quantity}") int deduct(@Param("id")Long id,@Param("quantity")int quantity);}
+

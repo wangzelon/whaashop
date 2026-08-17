@@ -1,0 +1,11 @@
+package com.whaa.shop.review.controller; import com.whaa.shop.common.api.*;import com.whaa.shop.common.security.CurrentUser;import com.whaa.shop.review.application.ReviewService;import com.whaa.shop.review.domain.*;import jakarta.validation.Valid;import jakarta.validation.constraints.*;import org.springframework.web.bind.annotation.*;import java.util.List;
+@RestController public class ReviewController {private final ReviewService service;public ReviewController(ReviewService s){service=s;}
+ @PostMapping("/api/v1/shop/order-items/{id}/reviews")ApiResponse<ProductReview> create(@PathVariable Long id,@Valid @RequestBody First r){return ApiResponse.ok(service.create(CurrentUser.id(),id,r.rating,r.content,r.images));}
+ @PostMapping("/api/v1/shop/reviews/{id}/appends")ApiResponse<ReviewAppend> append(@PathVariable Long id,@Valid @RequestBody Append r){return ApiResponse.ok(service.append(CurrentUser.id(),id,r.content,r.images));}
+ @GetMapping("/api/v1/shop/reviews/mine")ApiResponse<List<ReviewService.ReviewView>> mine(){return ApiResponse.ok(service.mine(CurrentUser.id()));}
+ @GetMapping("/api/v1/shop/products/{id}/reviews")ApiResponse<PageResponse<ProductReview>> page(@PathVariable Long id,@RequestParam(defaultValue="0")int rating,@RequestParam(defaultValue="false")boolean withImages,@RequestParam(defaultValue="1")long page,@RequestParam(defaultValue="20")long size){return ApiResponse.ok(service.page(id,rating,withImages,page,size));}
+ @GetMapping("/api/v1/shop/products/{id}/review-stats")ApiResponse<ReviewService.Stats> stats(@PathVariable Long id){return ApiResponse.ok(service.stats(id));}
+ @GetMapping("/api/v1/admin/reviews")ApiResponse<PageResponse<ProductReview>> admin(@RequestParam(required=false)Long productId,@RequestParam(required=false)Long userId,@RequestParam(defaultValue="0")int rating,@RequestParam(defaultValue="1")long page,@RequestParam(defaultValue="20")long size){return ApiResponse.ok(service.adminPage(productId,userId,rating,page,size));}
+ @PatchMapping("/api/v1/admin/reviews/{id}/visibility")ApiResponse<Void> visible(@PathVariable Long id,@RequestParam boolean hidden){service.hidden(id,hidden);return ApiResponse.ok();}
+ public record First(@Min(1)@Max(5)int rating,@NotBlank String content,List<String> images){}public record Append(@NotBlank String content,List<String> images){}
+}

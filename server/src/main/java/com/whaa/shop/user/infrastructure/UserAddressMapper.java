@@ -1,0 +1,1 @@
+package com.whaa.shop.user.infrastructure;import com.baomidou.mybatisplus.core.mapper.BaseMapper;import com.whaa.shop.user.domain.UserAddress;public interface UserAddressMapper extends BaseMapper<UserAddress>{}

@@ -1,0 +1,11 @@
+.idea/
+.vscode/
+server/target/
+**/node_modules/
+**/dist/
+.env
+*.log
+logs/
+**/logs/
+*.iml
+.DS_Store

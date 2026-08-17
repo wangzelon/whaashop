@@ -1,0 +1,1 @@
+package com.whaa.shop.cart.infrastructure;import com.baomidou.mybatisplus.core.mapper.BaseMapper;import com.whaa.shop.cart.domain.CartItem;public interface CartItemMapper extends BaseMapper<CartItem>{}

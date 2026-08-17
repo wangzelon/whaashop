@@ -1,0 +1,3 @@
+package com.whaa.shop.product.application;
+import com.whaa.shop.product.domain.Product;import com.whaa.shop.product.infrastructure.*;import org.junit.jupiter.api.Test;import static org.junit.jupiter.api.Assertions.*;import static org.mockito.Mockito.*;
+class ProductServiceTest {@Test void sanitizesDangerousRichText(){ProductMapper mapper=mock(ProductMapper.class);Product p=new Product();p.setName("test");p.setDetailHtml("<h2 onclick='x()'>OK</h2><script>alert(1)</script><img src='javascript:alert(2)'>");new ProductService(mapper,mock(SkuMapper.class)).save(p);assertTrue(p.getDetailHtml().contains("<h2>OK</h2>"));assertFalse(p.getDetailHtml().contains("script"));assertFalse(p.getDetailHtml().contains("javascript"));verify(mapper).insert(p);}}

@@ -1,0 +1,77 @@
+server:
+  port: ${SERVER_PORT:8080}
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor: ${SPRING_AI_ADVISOR_LOG_LEVEL:DEBUG}
+spring:
+  application:
+    name: whaashop-server
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/whaashop?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:123456}
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:123456}
+      database: 2
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 200MB
+  mail:
+    host: ${MAIL_HOST:smtp.qq.com}
+    port: ${MAIL_PORT:465}
+    username: ${MAIL_USERNAME:1059181336@qq.com}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+  ai:
+    ollama:
+      base-url: ${OLLAMA_BASE_URL:http://localhost:11434}
+      chat:
+        model: ${OLLAMA_CHAT_MODEL:gemma3:4b}
+      embedding:
+        model: ${OLLAMA_EMBED_MODEL:qwen3-embedding:4b}
+    vectorstore:
+      milvus:
+        initialize-schema: ${MILVUS_INITIALIZE_SCHEMA:true}
+        collection-name: ${MILVUS_COLLECTION:whaashop_knowledge}
+        embedding-dimension: 2560
+        metric-type: COSINE
+        client:
+          host: ${MILVUS_HOST:localhost}
+          port: ${MILVUS_PORT:19530}
+          username: ${MILVUS_USERNAME:root}
+          password: ${MILVUS_PASSWORD:Milvus}
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+whaashop:
+  files:
+    public-base-url: ${FILE_PUBLIC_BASE_URL:http://localhost:8080/api/v1/files}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174}
+  jwt:
+    secret: ${JWT_SECRET:a7f3b2c9d1e4f8a6c5b0d3e7f2a9c1b4}
+    expiration: ${JWT_EXPIRATION:86400}
+  minio:
+    endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+    access-key: ${MINIO_ACCESS_KEY:minioadmin}
+    secret-key: ${MINIO_SECRET_KEY:minioadmin}
+    bucket: ${MINIO_BUCKET:whaashop}
+  alipay:
+    enabled: ${ALIPAY_ENABLED:false}
+    gateway: ${ALIPAY_GATEWAY:https://openapi-sandbox.dl.alipaydev.com/gateway.do}
+    app-id: ${ALIPAY_APP_ID:}
+    private-key: ${ALIPAY_PRIVATE_KEY:}
+    public-key: ${ALIPAY_PUBLIC_KEY:}
+    notify-url: ${ALIPAY_NOTIFY_URL:}
+    return-url: ${ALIPAY_RETURN_URL:http://localhost:5173/payment/result}
